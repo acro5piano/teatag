@@ -1,0 +1,19 @@
+{
+  "name": "teatag-examples",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "extract": "node ../dist/cli.js extract --lang ja --src . --out ./locales",
+    "extract:fr": "node ../dist/cli.js extract --lang fr --src . --out ./locales",
+    "extract:es": "node ../dist/cli.js extract --lang es --src . --out ./locales",
+    "run:basic": "npx tsx basic-usage.ts",
+    "build": "node ../build.js"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.17",
+    "astro": "^5.1.6",
+    "react": "^18.3.1",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

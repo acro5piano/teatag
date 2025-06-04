@@ -1,0 +1,191 @@
+---
+// Example Astro page component using teatag
+import { addLocale, getTranslation } from '../dist/index.js'
+import * as fs from 'fs'
+
+// Get locale from URL params or default to 'en'
+const locale = Astro.params.locale || 'en'
+
+// Load translations server-side
+try {
+  if (locale !== 'en') {
+    const yamlContent = fs.readFileSync(`./locales/${locale}.yaml`, 'utf-8')
+    addLocale(locale, yamlContent)
+  }
+} catch (error) {
+  console.warn(`Could not load translations for ${locale}, falling back to English`)
+}
+
+const t = getTranslation(locale)
+
+// Mock data
+const posts = [
+  { id: 1, title: 'First Post', date: '2024-01-01' },
+  { id: 2, title: 'Second Post', date: '2024-01-02' },
+]
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{t`My Blog`}</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1>{t`My Awesome Blog`}</h1>
+        <ul>
+          <li><a href="/">{t`Home`}</a></li>
+          <li><a href="/about">{t`About`}</a></li>
+          <li><a href="/contact">{t`Contact`}</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h2>{t`Welcome to my blog!`}</h2>
+        <p>{t`Here you'll find articles about web development, technology, and more.`}</p>
+      </section>
+
+      <section class="posts">
+        <h3>{t`Recent Posts`}</h3>
+        {posts.length === 0 ? (
+          <p>{t`No posts available yet.`}</p>
+        ) : (
+          <ul>
+            {posts.map(post => (
+              <li key={post.id}>
+                <h4>{post.title}</h4>
+                <p>{t`Published on ${post.date}`}</p>
+                <a href={`/posts/${post.id}`}>{t`Read more`}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section class="newsletter">
+        <h3>{t`Subscribe to Newsletter`}</h3>
+        <p>{t`Get the latest updates delivered to your inbox.`}</p>
+        <form>
+          <input type="email" placeholder={t`Enter your email`} />
+          <button type="submit">{t`Subscribe`}</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>{t`© ${new Date().getFullYear()} My Blog. All rights reserved.`}</p>
+      <div class="language-links">
+        <a href="/en">{t`English`}</a>
+        <a href="/ja">{t`Japanese`}</a>
+        <a href="/fr">{t`French`}</a>
+      </div>
+    </footer>
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+      
+      header {
+        background: #333;
+        color: white;
+        padding: 1rem;
+      }
+      
+      nav h1 {
+        margin: 0 0 1rem 0;
+      }
+      
+      nav ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        gap: 1rem;
+      }
+      
+      nav a {
+        color: white;
+        text-decoration: none;
+      }
+      
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      
+      .hero {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      
+      .posts ul {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .posts li {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+      }
+      
+      .newsletter {
+        background: #f5f5f5;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-top: 2rem;
+      }
+      
+      .newsletter form {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      
+      .newsletter input {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      
+      .newsletter button {
+        padding: 0.5rem 1rem;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+      }
+      
+      .language-links {
+        margin-top: 1rem;
+      }
+      
+      .language-links a {
+        color: white;
+        margin: 0 0.5rem;
+        text-decoration: none;
+      }
+    </style>
+  </body>
+</html>
