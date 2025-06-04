@@ -1,6 +1,6 @@
 {
   "name": "teatag",
-  "version": "0.0.1-alpha.2",
+  "version": "0.0.1-alpha.3",
   "description": "Dead simple i18n solution in Vanilla JS, React, TS(X), and Astro",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
