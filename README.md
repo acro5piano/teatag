@@ -49,7 +49,10 @@ Update them:
 4. All set! Let's use the translated text:
 
 ```tsx
-import { getTranslation } from 'teatag'
+import { addLocale, getTranslation } from 'teatag'
+import { readFileSync } from 'fs'
+
+addLocale('ja', readFileSync('./locales/ja.yaml'))
 
 const t = getTranslation('ja')
 
