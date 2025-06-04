@@ -7,7 +7,7 @@ import * as yaml from 'js-yaml'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 
-const program = new Command()
+export const program = new Command()
 
 program
   .name('teatag')
@@ -113,7 +113,7 @@ async function findSourceFiles(dir: string): Promise<string[]> {
   return files
 }
 
-function extractTemplateStrings(content: string): string[] {
+export function extractTemplateStrings(content: string): string[] {
   const strings: string[] = []
 
   // Look for template literals with 't' tag
@@ -137,12 +137,4 @@ function extractTemplateStrings(content: string): string[] {
   return strings
 }
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-// Check if this is the main module being executed
-if (import.meta.url === `file://${process.argv[1]}`) {
-  program.parse()
-}
-
-export { program, extractTemplateStrings }
+program.parse()
