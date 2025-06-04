@@ -4,6 +4,9 @@
   "description": "Dead simple i18n solution in Vanilla JS, React, TS(X), and Astro",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "keywords": [],
+  "author": "acro5piano <ketsume0211@gmail.com>",
+  "license": "MIT",
   "bin": {
     "teatag": "dist/cli.js"
   },
@@ -12,9 +15,14 @@
     "test": "vitest",
     "test:run": "vitest run"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "dist/*.js",
+    "dist/*.map",
+    "dist/*.ts",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
   "packageManager": "pnpm@10.5.2",
   "type": "module",
   "devDependencies": {
