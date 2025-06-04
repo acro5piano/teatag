@@ -1,6 +1,6 @@
 ---
 // Example Astro page component using teatag
-import { addLocale, getTranslation } from '../dist/index.js'
+import { addLocale, getTranslation } from '../../dist'
 import * as fs from 'fs'
 
 // Get locale from URL params or default to 'en'
@@ -94,72 +94,72 @@ const posts = [
         margin: 0;
         padding: 0;
       }
-      
+
       header {
         background: #333;
         color: white;
         padding: 1rem;
       }
-      
+
       nav h1 {
         margin: 0 0 1rem 0;
       }
-      
+
       nav ul {
         list-style: none;
         padding: 0;
         display: flex;
         gap: 1rem;
       }
-      
+
       nav a {
         color: white;
         text-decoration: none;
       }
-      
+
       main {
         max-width: 800px;
         margin: 0 auto;
         padding: 2rem;
       }
-      
+
       .hero {
         text-align: center;
         margin-bottom: 2rem;
       }
-      
+
       .posts ul {
         list-style: none;
         padding: 0;
       }
-      
+
       .posts li {
         border: 1px solid #ddd;
         padding: 1rem;
         margin-bottom: 1rem;
         border-radius: 4px;
       }
-      
+
       .newsletter {
         background: #f5f5f5;
         padding: 1rem;
         border-radius: 4px;
         margin-top: 2rem;
       }
-      
+
       .newsletter form {
         display: flex;
         gap: 0.5rem;
         margin-top: 1rem;
       }
-      
+
       .newsletter input {
         flex: 1;
         padding: 0.5rem;
         border: 1px solid #ddd;
         border-radius: 4px;
       }
-      
+
       .newsletter button {
         padding: 0.5rem 1rem;
         background: #333;
@@ -168,7 +168,7 @@ const posts = [
         border-radius: 4px;
         cursor: pointer;
       }
-      
+
       footer {
         background: #333;
         color: white;
@@ -176,11 +176,11 @@ const posts = [
         padding: 1rem;
         margin-top: 2rem;
       }
-      
+
       .language-links {
         margin-top: 1rem;
       }
-      
+
       .language-links a {
         color: white;
         margin: 0 0.5rem;

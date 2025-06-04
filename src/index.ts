@@ -18,13 +18,9 @@ export function getTranslation(locale: Locale) {
   const translations = locales.get(locale) || {}
 
   return function t(strings: TemplateStringsArray, ...values: any[]): string {
-    // Create the key pattern that matches what we extract (with placeholder names)
+    // Create the key pattern that matches what we extract (with $1, $2, etc. placeholders)
     const key = strings.reduce((acc, str, i) => {
-      return (
-        acc +
-        str +
-        (i < values.length ? `\${${getPlaceholderName(values, i)}}` : '')
-      )
+      return acc + str + (i < values.length ? `\${${i + 1}}` : '')
     }, '')
 
     // Get translation or use original template
@@ -34,8 +30,7 @@ export function getTranslation(locale: Locale) {
       // Replace placeholders in translation with actual values
       let result = translation
       values.forEach((value, i) => {
-        const placeholderName = getPlaceholderName(values, i)
-        result = result.replace(`\${${placeholderName}}`, String(value))
+        result = result.replace(`\${${i + 1}}`, String(value))
       })
       return result
     }
@@ -45,10 +40,4 @@ export function getTranslation(locale: Locale) {
       return acc + str + (i < values.length ? String(values[i]) : '')
     }, '')
   }
-}
-
-function getPlaceholderName(values: any[], index: number): string {
-  // Try to infer meaningful names from variable context
-  // For now, just use generic names
-  return ['name', 'value', 'item', 'count', 'data'][index] || `arg${index}`
 }
