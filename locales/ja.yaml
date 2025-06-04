@@ -1,0 +1,4 @@
+Hello, ${name}!: 'こんにちは、${name}！'
+You are ${name} years old.: 'あなたは${name}歳です。'
+Hello, ${name}! You are ${value} years old.: 'こんにちは、${name}！あなたは${value}歳です。'
+Hello, world!: 'こんにちは、世界！'

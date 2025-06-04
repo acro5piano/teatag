@@ -2,11 +2,31 @@
   "name": "teatag",
   "version": "0.0.1-alpha.0",
   "description": "Dead simple i18n solution in Vanilla JS, React, TS(X), and Astro",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "teatag": "dist/cli.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node build.js && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.5.2"
+  "packageManager": "pnpm@10.5.2",
+  "type": "module",
+  "devDependencies": {
+    "@commander-js/extra-typings": "^14.0.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.15.29",
+    "esbuild": "^0.25.5",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.1"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "js-yaml": "^4.1.0"
+  }
 }
