@@ -71,13 +71,13 @@ addLocale('ja', jaTranslations)
 const t = getTranslation('ja')
 const name = 'John'
 
-console.log(t`Hello, ${name}!`)        // Output: こんにちは、John！
-console.log(t`Welcome to our app!`)    // Output: 私たちのアプリへようこそ！
+console.log(t`Hello, ${name}!`) // Output: こんにちは、John！
+console.log(t`Welcome to our app!`) // Output: 私たちのアプリへようこそ！
 ```
 
 ## Features
 
-- **Dead simple**: Just use `t\`string\`` - no complex setup required
+- **Dead simple**: Just use `t` tag - no complex setup, Babel, SWC settings are required
 - **Type safe**: Full TypeScript support with strong typing
 - **Framework agnostic**: Works with React, Astro, Vanilla JS, and more
 - **Automatic extraction**: CLI tool finds and extracts all translatable strings
@@ -94,11 +94,13 @@ npx teatag extract --lang <locale> [options]
 ```
 
 **Options:**
+
 - `--lang <locale>`: Target language code (e.g., `ja`, `fr`, `es`) **[required]**
 - `--src <directory>`: Source directory to scan (default: `./src`)
 - `--out <directory>`: Output directory for locale files (default: `./locales`)
 
 **Examples:**
+
 ```bash
 # Extract to Japanese
 npx teatag extract --lang ja
@@ -110,15 +112,16 @@ npx teatag extract --lang fr --src ./app --out ./translations
 ## Supported File Types
 
 The CLI automatically extracts strings from:
+
 - `.ts` - TypeScript files
-- `.tsx` - TypeScript React files  
+- `.tsx` - TypeScript React files
 - `.js` - JavaScript files
 - `.jsx` - JavaScript React files
 - `.astro` - Astro components
 
 ## How It Works
 
-1. **Template literals**: Use `t\`string\`` syntax in your code
+1. **Template literals**: Use `t` tag in your code
 2. **Extraction**: CLI scans your code and finds all tagged templates
 3. **Placeholders**: Variables like `${name}` become numbered placeholders `${1}`, `${2}`, etc.
 4. **Translation**: Edit YAML files with your translations
@@ -127,6 +130,7 @@ The CLI automatically extracts strings from:
 ## Examples
 
 Check out the [`examples/`](./examples/) directory for complete examples including:
+
 - Basic Node.js usage
 - React components with i18n
 - Astro page components
