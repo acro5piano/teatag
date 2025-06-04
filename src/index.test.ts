@@ -16,7 +16,7 @@ describe('teatag', () => {
     })
 
     it('should return translated string when translation exists', () => {
-      const yamlContent = `'Hello, \${name}!': 'こんにちは、\${name}！'`
+      const yamlContent = `'Hello, \${1}!': 'こんにちは、\${1}！'`
       addLocale('ja', yamlContent)
 
       const t = getTranslation('ja')
@@ -31,6 +31,17 @@ describe('teatag', () => {
       const age = 25
       const result = t`Hello, ${name}! You are ${age} years old.`
       expect(result).toBe('Hello, John! You are 25 years old.')
+    })
+
+    it('should handle multiple placeholders with translations', () => {
+      const yamlContent = `'Hello, \${1}! You are \${2} years old.': 'こんにちは、\${1}！あなたは\${2}歳です。'`
+      addLocale('ja', yamlContent)
+
+      const t = getTranslation('ja')
+      const name = 'John'
+      const age = 25
+      const result = t`Hello, ${name}! You are ${age} years old.`
+      expect(result).toBe('こんにちは、John！あなたは25歳です。')
     })
 
     it('should handle strings without placeholders', () => {

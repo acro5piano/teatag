@@ -4,10 +4,8 @@
   "type": "module",
   "scripts": {
     "extract": "node ../dist/cli.js extract --lang ja --src . --out ./locales",
-    "extract:fr": "node ../dist/cli.js extract --lang fr --src . --out ./locales",
-    "extract:es": "node ../dist/cli.js extract --lang es --src . --out ./locales",
-    "run:basic": "npx tsx basic-usage.ts",
-    "build": "node ../build.js"
+    "run:basic": "npx tsx src/basic-usage.ts",
+    "build": "cd .. && node ./build.js"
   },
   "devDependencies": {
     "@types/react": "^18.3.17",

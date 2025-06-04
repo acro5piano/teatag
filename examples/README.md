@@ -31,17 +31,17 @@ Edit the generated YAML files in `./locales/` directory:
 
 **locales/ja.yaml:**
 ```yaml
-'Hello, ${name}!': 'こんにちは、${name}！'
-'You are ${name} years old.': 'あなたは${name}歳です。'
+'Hello, ${1}!': 'こんにちは、${1}！'
+'You are ${1} years old.': 'あなたは${1}歳です。'
 'Welcome to teatag!': 'teatagへようこそ！'
 'User Profile': 'ユーザープロフィール'
 'Name:': '名前:'
 'Email:': 'メール:'
 'Age:': '年齢:'
-'${name} years old': '${name}歳'
+'${1} years old': '${1}歳'
 'Edit Profile': 'プロフィール編集'
 'Delete Account': 'アカウント削除'
-'Welcome, ${name}! You have ${value} unread messages.': 'ようこそ、${name}！未読メッセージが${value}件あります。'
+'Welcome, ${1}! You have ${2} unread messages.': 'ようこそ、${1}！未読メッセージが${2}件あります。'
 'English': '英語'
 'Japanese': '日本語'
 'French': 'フランス語'
@@ -51,17 +51,17 @@ Edit the generated YAML files in `./locales/` directory:
 
 **locales/fr.yaml:**
 ```yaml
-'Hello, ${name}!': 'Bonjour, ${name}!'
-'You are ${name} years old.': 'Vous avez ${name} ans.'
+'Hello, ${1}!': 'Bonjour, ${1}!'
+'You are ${1} years old.': 'Vous avez ${1} ans.'
 'Welcome to teatag!': 'Bienvenue sur teatag!'
 'User Profile': 'Profil utilisateur'
 'Name:': 'Nom:'
 'Email:': 'Email:'
 'Age:': 'Âge:'
-'${name} years old': '${name} ans'
+'${1} years old': '${1} ans'
 'Edit Profile': 'Modifier le profil'
 'Delete Account': 'Supprimer le compte'
-'Welcome, ${name}! You have ${value} unread messages.': 'Bienvenue, ${name}! Vous avez ${value} messages non lus.'
+'Welcome, ${1}! You have ${2} unread messages.': 'Bienvenue, ${1}! Vous avez ${2} messages non lus.'
 'English': 'Anglais'
 'Japanese': 'Japonais'
 'French': 'Français'

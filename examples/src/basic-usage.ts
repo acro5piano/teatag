@@ -1,18 +1,7 @@
 import { addLocale, getTranslation } from '../../dist'
 import * as fs from 'fs'
 
-// Example showing basic usage of teatag
-
-// 1. Define your translatable strings using the t`` tag
-function greetUser(name: string, age: number) {
-  const t = getTranslation('en') // Default locale
-
-  console.log(t`Hello, ${name}!`)
-  console.log(t`You are ${age} years old.`)
-  console.log(t`Welcome to teatag!`)
-}
-
-// 2. Load translations from YAML files
+// Setup
 function loadTranslations() {
   // Load Japanese translations
   const jaYaml = fs.readFileSync('./locales/ja.yaml', 'utf-8')
@@ -27,28 +16,28 @@ function loadTranslations() {
   }
 }
 
-// 3. Use translations in different languages
+// Example showing basic usage of teatag
 function demonstrateTranslations() {
   const name = 'Alice'
   const age = 30
 
   console.log('=== English (default) ===')
-  const enT = getTranslation('en')
-  console.log(enT`Hello, ${name}!`)
-  console.log(enT`You are ${age} years old.`)
-  console.log(enT`Welcome to teatag!`)
+  let t = getTranslation('en')
+  console.log(t`Hello, ${name}!`)
+  console.log(t`You are ${age} years old.`)
+  console.log(t`Welcome to teatag!`)
 
   console.log('\n=== Japanese ===')
-  const jaT = getTranslation('ja')
-  console.log(jaT`Hello, ${name}!`)
-  console.log(jaT`You are ${age} years old.`)
-  console.log(jaT`Welcome to teatag!`)
+  t = getTranslation('ja')
+  console.log(t`Hello, ${name}!`)
+  console.log(t`You are ${age} years old.`)
+  console.log(t`Welcome to teatag!`)
 
   console.log('\n=== French (fallback to original) ===')
-  const frT = getTranslation('fr')
-  console.log(frT`Hello, ${name}!`)
-  console.log(frT`You are ${age} years old.`)
-  console.log(frT`Welcome to teatag!`)
+  t = getTranslation('fr')
+  console.log(t`Hello, ${name}!`)
+  console.log(t`You are ${age} years old.`)
+  console.log(t`Welcome to teatag!`)
 }
 
 // Run the example

@@ -105,7 +105,7 @@ async function findSourceFiles(dir: string): Promise<string[]> {
       entry.name !== 'node_modules'
     ) {
       files.push(...(await findSourceFiles(fullPath)))
-    } else if (entry.isFile() && /\.(ts|tsx|js|jsx)$/.test(entry.name)) {
+    } else if (entry.isFile() && /\.(ts|tsx|js|jsx|astro)$/.test(entry.name)) {
       files.push(fullPath)
     }
   }
@@ -123,14 +123,11 @@ function extractTemplateStrings(content: string): string[] {
   while ((match = templateRegex.exec(content)) !== null) {
     const templateContent = match[1]
 
-    // Convert ${variable} to placeholder names
+    // Convert ${variable} to numbered placeholders: $1, $2, etc.
     let placeholderCount = 0
     const normalized = templateContent.replace(/\$\{[^}]+\}/g, () => {
-      const placeholderNames = ['name', 'value', 'item', 'count', 'data']
-      const placeholderName =
-        placeholderNames[placeholderCount] || `arg${placeholderCount}`
       placeholderCount++
-      return `\${${placeholderName}}`
+      return `\${${placeholderCount}}`
     })
 
     strings.push(normalized)
