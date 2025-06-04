@@ -116,8 +116,9 @@ async function findSourceFiles(dir: string): Promise<string[]> {
 function extractTemplateStrings(content: string): string[] {
   const strings: string[] = []
 
-  // Look for template literals with 't' tag - simpler regex
-  const templateRegex = /t`([^`]+)`/g
+  // Look for template literals with 't' tag
+  // Use word boundary to ensure 't' is standalone and directly followed by backtick
+  const templateRegex = /\bt`([^`]+)`/g
   let match
 
   while ((match = templateRegex.exec(content)) !== null) {
@@ -144,4 +145,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   program.parse()
 }
 
-export { program }
+export { program, extractTemplateStrings }

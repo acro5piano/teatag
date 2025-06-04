@@ -51,6 +51,59 @@ describe('teatag', () => {
     })
   })
 
+  describe('CLI extraction edge cases', () => {
+    it('should not extract false positive matches', async () => {
+      // Import the extraction function to test it directly
+      const { extractTemplateStrings } = await import('./cli')
+      
+      const problematicCode = `
+// Edge cases that should NOT be extracted
+async (t) => {
+  mockdate.set('2023-07-10T00:00')
+  console.log('test')
+}
+
+// t separated from backtick by newline - should NOT match
+const value = t
+\`this should not be extracted\`
+
+// t as part of another identifier - should NOT match  
+const methodt = obj.methodt\`should not match\`
+const att = someatt\`should not match\`
+
+// Valid cases that SHOULD match
+const t = getTranslation('en')
+const result = t\`Hello world!\`
+
+// Standalone t with immediate backtick
+t\`Actual tagged template\`
+
+// t after whitespace/operators - should match
+const x = true ? t\`conditional template\` : ''
+return t\`return template\`
+
+// Regular templates without t tag - should NOT match
+const regular = \`regular template\`
+      `
+      
+      const extracted = extractTemplateStrings(problematicCode)
+      
+      // Should only extract the legitimate tagged templates
+      expect(extracted).toEqual([
+        'Hello world!',
+        'Actual tagged template',
+        'conditional template',
+        'return template'
+      ])
+      
+      // Should NOT extract things that aren't valid tagged templates
+      expect(extracted).not.toContain(expect.stringContaining('this should not be extracted'))
+      expect(extracted).not.toContain(expect.stringContaining('should not match'))
+      expect(extracted).not.toContain(expect.stringContaining('regular template'))
+      expect(extracted).not.toContain(expect.stringContaining('mockdate'))
+    })
+  })
+
   describe('addLocale', () => {
     it('should parse valid YAML content', () => {
       const yamlContent = `
