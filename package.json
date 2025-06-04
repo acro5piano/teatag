@@ -1,6 +1,6 @@
 {
   "name": "teatag",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.4",
   "description": "Dead simple i18n solution in Vanilla JS, React, TS(X), and Astro",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,6 +14,7 @@
   },
   "scripts": {
     "build": "node build.js && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "prepublish": "pnpm build",
     "test": "vitest",
     "test:run": "vitest run"
   },
