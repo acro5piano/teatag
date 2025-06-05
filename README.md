@@ -59,6 +59,8 @@ Edit the generated YAML file:
 
 ### 4. Load translations and use them
 
+**Node.js:**
+
 ```tsx
 import { addLocale, getTranslation } from 'teatag'
 import fs from 'fs'
@@ -66,6 +68,43 @@ import fs from 'fs'
 // Load translations
 const jaTranslations = fs.readFileSync('./locales/ja.yaml', 'utf-8')
 addLocale('ja', jaTranslations)
+
+// Use translations
+const t = getTranslation('ja')
+const name = 'John'
+
+console.log(t`Hello, ${name}!`) // Output: こんにちは、John！
+console.log(t`Welcome to our app!`) // Output: 私たちのアプリへようこそ！
+```
+
+**Frontend (Vite):**
+
+Configure your `vite.config.ts` to handle YAML files:
+
+```ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react-swc'
+
+export default defineConfig({
+  plugins: [react()],
+  assetsInclude: ['**/*.yaml'],
+  resolve: {
+    alias: {
+      'src/': `${__dirname}/src/`,
+      'locales/': `${__dirname}/locales/`,
+    },
+  },
+})
+```
+
+Then import and use translations:
+
+```tsx
+import { addLocale, getTranslation } from 'teatag'
+import ja from 'locales/ja.yaml?raw'
+
+// Load translations
+addLocale('ja', ja)
 
 // Use translations
 const t = getTranslation('ja')
