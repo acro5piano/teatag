@@ -16,7 +16,7 @@ describe('teatag', () => {
     })
 
     it('should return translated string when translation exists', () => {
-      const yamlContent = `'Hello, \${1}!': 'こんにちは、\${1}！'`
+      const yamlContent = `'Hello, \${name}!': 'こんにちは、\${name}！'`
       addLocale('ja', yamlContent)
 
       const t = getTranslation('ja')
@@ -34,7 +34,7 @@ describe('teatag', () => {
     })
 
     it('should handle multiple placeholders with translations', () => {
-      const yamlContent = `'Hello, \${1}! You are \${2} years old.': 'こんにちは、\${1}！あなたは\${2}歳です。'`
+      const yamlContent = `'Hello, \${name}! You are \${age} years old.': 'こんにちは、\${name}！あなたは\${age}歳です。'`
       addLocale('ja', yamlContent)
 
       const t = getTranslation('ja')
@@ -48,6 +48,27 @@ describe('teatag', () => {
       const t = getTranslation('en')
       const result = t`Hello, world!`
       expect(result).toBe('Hello, world!')
+    })
+
+    it('should handle translations with variable names in placeholders', () => {
+      const yamlContent = `'Hello, \${name}!': 'こんにちは、\${name}！'`
+      addLocale('ja', yamlContent)
+
+      const t = getTranslation('ja')
+      const name = 'John'
+      const result = t`Hello, ${name}!`
+      expect(result).toBe('こんにちは、John！')
+    })
+
+    it('should handle multiple variable names in placeholders', () => {
+      const yamlContent = `'Hello, \${name}! You are \${age} years old.': 'こんにちは、\${name}！あなたは\${age}歳です。'`
+      addLocale('ja', yamlContent)
+
+      const t = getTranslation('ja')
+      const name = 'John'
+      const age = 25
+      const result = t`Hello, ${name}! You are ${age} years old.`
+      expect(result).toBe('こんにちは、John！あなたは25歳です。')
     })
   })
 
@@ -74,6 +95,8 @@ const att = someatt\`should not match\`
 // Valid cases that SHOULD match
 const t = getTranslation('en')
 const result = t\`Hello world!\`
+const name = 'John'
+const message = t\`Hello, \${name}!\`
 
 // Standalone t with immediate backtick
 t\`Actual tagged template\`
@@ -91,6 +114,7 @@ const regular = \`regular template\`
       // Should only extract the legitimate tagged templates
       expect(extracted).toEqual([
         'Hello world!',
+        'Hello, ${name}!',
         'Actual tagged template',
         'conditional template',
         'return template'

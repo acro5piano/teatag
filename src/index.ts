@@ -18,20 +18,31 @@ export function getTranslation(locale: Locale) {
   const translations = locales.get(locale) || {}
 
   return function t(strings: TemplateStringsArray, ...values: any[]): string {
-    // Create the key pattern that matches what we extract (with $1, $2, etc. placeholders)
-    const key = strings.reduce((acc, str, i) => {
-      return acc + str + (i < values.length ? `\${${i + 1}}` : '')
-    }, '')
+    // Find a matching translation key by comparing template structure
+    let translation: string | undefined
+    let matchedKey: string | undefined
 
-    // Get translation or use original template
-    const translation = translations[key]
+    for (const [key, trans] of Object.entries(translations)) {
+      if (keyMatches(key, strings)) {
+        translation = trans
+        matchedKey = key
+        break
+      }
+    }
 
     if (translation) {
-      // Replace placeholders in translation with actual values
+      // Replace placeholders in translation with actual values by position
       let result = translation
-      values.forEach((value, i) => {
-        result = result.replace(`\${${i + 1}}`, String(value))
+      const placeholderRegex = /\$\{([^}]+)\}/g
+      let placeholderIndex = 0
+      
+      result = result.replace(placeholderRegex, (match, varName) => {
+        if (placeholderIndex < values.length) {
+          return String(values[placeholderIndex++])
+        }
+        return match
       })
+      
       return result
     }
 
@@ -40,4 +51,16 @@ export function getTranslation(locale: Locale) {
       return acc + str + (i < values.length ? String(values[i]) : '')
     }, '')
   }
+}
+
+function keyMatches(key: string, strings: TemplateStringsArray): boolean {
+  // Split the key by placeholder patterns to get the static parts
+  const keyParts = key.split(/\$\{[^}]+\}/)
+  
+  // Check if static parts match the template strings
+  if (keyParts.length !== strings.length) {
+    return false
+  }
+  
+  return keyParts.every((part, i) => part === strings[i])
 }

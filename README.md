@@ -44,7 +44,7 @@ npx teatag extract --lang ja
 This creates a `locales/ja.yaml` file with extracted strings:
 
 ```yaml
-'Hello, ${1}!': ''
+'Hello, ${name}!': ''
 'Welcome to our app!': ''
 ```
 
@@ -53,7 +53,7 @@ This creates a `locales/ja.yaml` file with extracted strings:
 Edit the generated YAML file:
 
 ```yaml
-'Hello, ${1}!': 'こんにちは、${1}！'
+'Hello, ${name}!': 'こんにちは、${name}！'
 'Welcome to our app!': '私たちのアプリへようこそ！'
 ```
 
@@ -162,8 +162,8 @@ The CLI automatically extracts strings from:
 
 1. **Template literals**: Use `t` tag in your code
 2. **Extraction**: CLI scans your code and finds all tagged templates
-3. **Placeholders**: Variables like `${name}` become numbered placeholders `${1}`, `${2}`, etc.
-4. **Translation**: Edit YAML files with your translations
+3. **Placeholders**: Variables like `${name}` are preserved as `${name}` in the extracted strings
+4. **Translation**: Edit YAML files with your translations using the same variable names
 5. **Runtime**: Load translations and get localized output
 
 ## Examples

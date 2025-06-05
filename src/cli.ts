@@ -124,12 +124,8 @@ export function extractTemplateStrings(content: string): string[] {
   while ((match = templateRegex.exec(content)) !== null) {
     const templateContent = match[1]
 
-    // Convert ${variable} to numbered placeholders: $1, $2, etc.
-    let placeholderCount = 0
-    const normalized = templateContent.replace(/\$\{[^}]+\}/g, () => {
-      placeholderCount++
-      return `\${${placeholderCount}}`
-    })
+    // Keep original variable names in placeholders
+    const normalized = templateContent
 
     strings.push(normalized)
   }
