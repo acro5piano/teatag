@@ -137,4 +137,7 @@ export function extractTemplateStrings(content: string): string[] {
   return strings
 }
 
-program.parse()
+// We want to test this command, but do not want to run this while testing
+if (process.env.NODE_ENV !== 'test') {
+  program.parse()
+}
