@@ -10,7 +10,7 @@
   "packageManager": "pnpm@10.5.2",
   "type": "module",
   "bin": {
-    "teatag": "dist/cli.js"
+    "teatag": "dist/main.js"
   },
   "scripts": {
     "build": "node build.js && tsc --declaration --emitDeclarationOnly --outDir dist",

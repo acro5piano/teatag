@@ -1,4 +1,4 @@
-import { build } from 'esbuild';
+import { build } from 'esbuild'
 
 // Build the library
 await build({
@@ -11,17 +11,17 @@ await build({
   external: ['js-yaml'],
   minify: true,
   sourcemap: true,
-});
+})
 
 // Build the CLI
 await build({
-  entryPoints: ['src/cli.ts'],
+  entryPoints: ['src/main.ts'],
   bundle: false,
   platform: 'node',
   target: 'node16',
   format: 'esm',
   outdir: 'dist',
   sourcemap: true,
-});
+})
 
-console.log('Build completed!');
+console.log('Build completed!')

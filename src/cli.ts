@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 
 import { Command } from '@commander-js/extra-typings'
 import * as fs from 'fs'
@@ -133,7 +132,3 @@ export function extractTemplateStrings(content: string): string[] {
   return strings
 }
 
-// We want to test this command, but do not want to run this while testing
-if (process.env.NODE_ENV !== 'test') {
-  program.parse()
-}
