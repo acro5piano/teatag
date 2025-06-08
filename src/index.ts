@@ -30,19 +30,31 @@ export function getTranslation(locale: Locale) {
       }
     }
 
-    if (translation) {
-      // Replace placeholders in translation with actual values by position
+    if (translation && matchedKey) {
+      // Extract variable names from the original key to map values correctly
+      const keyPlaceholderRegex = /\$\{([^}]+)\}/g
+      const variableNames: string[] = []
+      let match
+      while ((match = keyPlaceholderRegex.exec(matchedKey)) !== null) {
+        variableNames.push(match[1])
+      }
+
+      // Create a mapping from variable names to actual values
+      const valueMap: Record<string, string> = {}
+      variableNames.forEach((varName, index) => {
+        if (index < values.length) {
+          valueMap[varName] = String(values[index])
+        }
+      })
+
+      // Replace placeholders in translation with actual values by variable name
       let result = translation
       const placeholderRegex = /\$\{([^}]+)\}/g
-      let placeholderIndex = 0
-      
+
       result = result.replace(placeholderRegex, (match, varName) => {
-        if (placeholderIndex < values.length) {
-          return String(values[placeholderIndex++])
-        }
-        return match
+        return valueMap[varName] || match
       })
-      
+
       return result
     }
 
@@ -56,11 +68,11 @@ export function getTranslation(locale: Locale) {
 function keyMatches(key: string, strings: TemplateStringsArray): boolean {
   // Split the key by placeholder patterns to get the static parts
   const keyParts = key.split(/\$\{[^}]+\}/)
-  
+
   // Check if static parts match the template strings
   if (keyParts.length !== strings.length) {
     return false
   }
-  
+
   return keyParts.every((part, i) => part === strings[i])
 }

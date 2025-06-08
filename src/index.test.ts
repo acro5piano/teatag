@@ -70,6 +70,17 @@ describe('teatag', () => {
       const result = t`Hello, ${name}! You are ${age} years old.`
       expect(result).toBe('こんにちは、John！あなたは25歳です。')
     })
+
+    it('should handle different variable orders between languages', () => {
+      const yamlContent = `'I accept \${risk} as \${role}': '私は\${role}として\${risk}を受け入れます'`
+      addLocale('ja', yamlContent)
+
+      const t = getTranslation('ja')
+      const risk = 'the responsibility'
+      const role = 'manager'
+      const result = t`I accept ${risk} as ${role}`
+      expect(result).toBe('私はmanagerとしてthe responsibilityを受け入れます')
+    })
   })
 
   describe('CLI extraction edge cases', () => {
