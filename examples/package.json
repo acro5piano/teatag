@@ -8,9 +8,11 @@
     "build": "cd .. && node ./build.js"
   },
   "devDependencies": {
-    "@types/react": "^18.3.17",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^19.1.6",
     "astro": "^5.1.6",
     "react": "^18.3.1",
+    "react-dom": "^18.1.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }

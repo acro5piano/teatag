@@ -1,5 +1,6 @@
 import React from 'react'
 import { getTranslation } from '../../dist'
+import { renderToStaticMarkup } from 'react-dom/server'
 
 // Example React component using teatag for i18n
 
@@ -81,3 +82,14 @@ export function LanguageSwitcher({
     </div>
   )
 }
+
+console.log(
+  renderToStaticMarkup(
+    <UserProfile
+      name="Alice"
+      email="alice@example.com"
+      age={30}
+      locale="en"
+    />
+  )
+)
