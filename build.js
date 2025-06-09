@@ -15,7 +15,7 @@ await build({
 
 // Build the CLI
 await build({
-  entryPoints: ['src/main.ts'],
+  entryPoints: ['src/main.ts', 'src/cli.ts'],
   bundle: false,
   platform: 'node',
   target: 'node16',

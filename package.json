@@ -13,7 +13,7 @@
     "teatag": "dist/main.js"
   },
   "scripts": {
-    "build": "node build.js && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "build": "rm -rf dist && node build.js && tsc --declaration --emitDeclarationOnly --outDir dist",
     "prepublish": "pnpm build",
     "test": "vitest",
     "test:run": "vitest run"
