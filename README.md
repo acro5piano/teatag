@@ -6,6 +6,13 @@
 
 A dead simple i18n solution for Vanilla JS, React, TypeScript, and Astro
 
+## Features
+
+- **Dead simple**: Just use `t` tag - no complex setup, Babel, SWC settings are required
+- **Framework agnostic**: Works with React, Astro, Vanilla JS, and more
+- **YAML-based**: Human-readable translation files
+- **Fast extraction**: CLI tool extracts all translatable strings using regular expressions
+
 ## Installation
 
 ```bash
@@ -114,29 +121,15 @@ console.log(t`Hello, ${name}!`) // Output: こんにちは、John！
 console.log(t`Welcome to our app!`) // Output: 私たちのアプリへようこそ！
 ```
 
-## Features
-
-- **Dead simple**: Just use `t` tag - no complex setup, Babel, SWC settings are required
-- **Type safe**: Full TypeScript support with strong typing
-- **Framework agnostic**: Works with React, Astro, Vanilla JS, and more
-- **Automatic extraction**: CLI tool finds and extracts all translatable strings
-- **Numbered placeholders**: Uses `${1}`, `${2}` format for predictable variable replacement
-- **YAML-based**: Human-readable translation files (chosen over .po files for translator readability and no need for complex extract/transform/conversion between po<->json)
-- **Fallback support**: Automatically falls back to original text when translations are missing
-
 ## CLI Commands
 
-### Extract strings
+The CLI automatically extracts strings from:
 
-```bash
-npx teatag extract --lang <locale> [options]
-```
-
-**Options:**
-
-- `--lang <locale>`: Target language code (e.g., `ja`, `fr`, `es`) **[required]**
-- `--src <directory>`: Source directory to scan (default: `./src`)
-- `--out <directory>`: Output directory for locale files (default: `./locales`)
+- `.ts` - TypeScript files
+- `.tsx` - TypeScript React files
+- `.js` - JavaScript files
+- `.jsx` - JavaScript React files
+- `.astro` - Astro components
 
 **Examples:**
 
@@ -148,36 +141,27 @@ npx teatag extract --lang ja
 npx teatag extract --lang fr --src ./app --out ./translations
 ```
 
-## Supported File Types
+You can view full help text in the command line:
 
-The CLI automatically extracts strings from:
+```
+$ pnpm teatag extract --help
 
-- `.ts` - TypeScript files
-- `.tsx` - TypeScript React files
-- `.js` - JavaScript files
-- `.jsx` - JavaScript React files
-- `.astro` - Astro components
+Usage: teatag extract [options]
 
-## How It Works
+Extract translatable strings from source code
 
-1. **Template literals**: Use `t` tag in your code
-2. **Extraction**: CLI scans your code and finds all tagged templates
-3. **Placeholders**: Variables like `${name}` are preserved as `${name}` in the extracted strings
-4. **Translation**: Edit YAML files with your translations using the same variable names
-5. **Runtime**: Load translations and get localized output
+Options:
+  --lang <language>  Target language code (e.g., ja, fr, es)
+  --src <directory>  Source directory to scan (default: "./src")
+  --out <directory>  Output directory for locale files (default: "./locales")
+  -h, --help         display help for command
+```
 
-## Examples
-
-Check out the [`examples/`](./examples/) directory for complete examples including:
-
-- Basic Node.js usage
-- React components with i18n
-- Astro page components
-- Interactive workflow demonstration
+Check out the [`examples/`](./examples/) directory for more examples.
 
 ## API Reference
 
-### `getTranslation(locale: string)`
+`getTranslation(locale: string)`
 
 Returns a template literal function for the specified locale.
 
@@ -186,7 +170,7 @@ const t = getTranslation('ja')
 const result = t`Hello, ${name}!`
 ```
 
-### `addLocale(locale: string, yamlContent: string)`
+`addLocale(locale: string, yamlContent: string)`
 
 Loads translations from YAML content for the specified locale.
 
@@ -196,6 +180,14 @@ import fs from 'fs'
 const yamlContent = fs.readFileSync('./locales/ja.yaml', 'utf-8')
 addLocale('ja', yamlContent)
 ```
+
+## Why Yaml?
+
+teatag uses .yaml over .po for
+
+- Translator readability
+- No need for complex extract/transform/conversion between po<->json
+- Easier to port to other languages
 
 ## License
 
