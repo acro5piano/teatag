@@ -4,10 +4,10 @@ This directory contains complete examples showing how to use teatag in different
 
 ## Files
 
-- `basic-usage.ts` - Basic Node.js example
-- `react-component.tsx` - React component examples
-- `astro-page.astro` - Astro page component example
-- `workflow-demo.ts` - Complete workflow demonstration
+- `src/basic-usage.ts` - Basic Node.js example with multiple locales
+- `src/react-component.tsx` - React component examples with user profile and language switcher
+- `src/astro-page.astro` - Complete Astro blog page with i18n
+- `locales/ja.yaml` - Japanese translations for the examples
 - `package.json` - Example scripts for extraction and running
 
 ## Running the Examples
@@ -22,60 +22,50 @@ pnpm build
 ```bash
 cd examples
 pnpm extract           # Extract for Japanese
-pnpm extract:fr        # Extract for French
-pnpm extract:es        # Extract for Spanish
 ```
 
 ### 3. Translate the strings
-Edit the generated YAML files in `./locales/` directory:
+The Japanese translations are already provided in `locales/ja.yaml`. You can add more languages by creating additional YAML files:
 
-**locales/ja.yaml:**
+**locales/ja.yaml (existing):**
 ```yaml
-'Hello, ${1}!': 'こんにちは、${1}！'
-'You are ${1} years old.': 'あなたは${1}歳です。'
+'Hello, ${name}!': 'こんにちは、${name}！'
+'You are ${age} years old.': 'あなたは${age}歳です。'
 'Welcome to teatag!': 'teatagへようこそ！'
 'User Profile': 'ユーザープロフィール'
 'Name:': '名前:'
 'Email:': 'メール:'
 'Age:': '年齢:'
-'${1} years old': '${1}歳'
+'${age} years old': '${age}歳'
 'Edit Profile': 'プロフィール編集'
 'Delete Account': 'アカウント削除'
-'Welcome, ${1}! You have ${2} unread messages.': 'ようこそ、${1}！未読メッセージが${2}件あります。'
+'Welcome, ${name}! You have ${getUnreadCount()} unread messages.': 'ようこそ、${name}さん！未読メッセージが${getUnreadCount()}件あります。'
+'My Blog': 'マイブログ'
+'My Awesome Blog': '私の素晴らしいブログ'
+'Home': 'ホーム'
+'About': 'について'
+'Contact': 'お問い合わせ'
+'Welcome to my blog!': '私のブログへようこそ！'
+'Published on ${post.date}': '${post.date}に公開'
+'Read more': '続きを読む'
+'Subscribe to Newsletter': 'ニュースレター購読'
+'Enter your email': 'メールアドレスを入力'
+'Subscribe': '購読'
 'English': '英語'
 'Japanese': '日本語'
 'French': 'フランス語'
-'Spanish': 'スペイン語'
-'Language:': '言語:'
-```
-
-**locales/fr.yaml:**
-```yaml
-'Hello, ${1}!': 'Bonjour, ${1}!'
-'You are ${1} years old.': 'Vous avez ${1} ans.'
-'Welcome to teatag!': 'Bienvenue sur teatag!'
-'User Profile': 'Profil utilisateur'
-'Name:': 'Nom:'
-'Email:': 'Email:'
-'Age:': 'Âge:'
-'${1} years old': '${1} ans'
-'Edit Profile': 'Modifier le profil'
-'Delete Account': 'Supprimer le compte'
-'Welcome, ${1}! You have ${2} unread messages.': 'Bienvenue, ${1}! Vous avez ${2} messages non lus.'
-'English': 'Anglais'
-'Japanese': 'Japonais'
-'French': 'Français'
-'Spanish': 'Espagnol'
-'Language:': 'Langue:'
 ```
 
 ### 4. Run the examples
 ```bash
-# Basic usage example
-npx tsx basic-usage.ts
+# Basic usage example (Node.js)
+pnpm run:basic
 
-# Complete workflow demonstration  
-npx tsx workflow-demo.ts
+# React component example
+npx tsx src/react-component.tsx
+
+# Astro page example (requires Astro project setup)
+# See astro-page.astro for the component code
 ```
 
 ## Example Workflow
@@ -97,6 +87,7 @@ npx tsx workflow-demo.ts
 - Load translations server-side in frontmatter
 - Use translations in both the component script and template
 - Perfect for static site generation with i18n
+- Example shows a complete blog page with navigation, content, and footer
 
 ### Vanilla JS/TS
 - Simple function calls
@@ -105,10 +96,12 @@ npx tsx workflow-demo.ts
 
 ## Key Features Demonstrated
 
-- ✅ Template literal syntax with placeholders
-- ✅ Automatic string extraction
+- ✅ Template literal syntax with placeholders (`${name}`, `${age}`, etc.)
+- ✅ Automatic string extraction via CLI tool
 - ✅ YAML-based translation files
-- ✅ Fallback to original strings
-- ✅ Multiple placeholder support
-- ✅ Framework agnostic usage
-- ✅ TypeScript support
+- ✅ Fallback to original strings when translations missing
+- ✅ Multiple placeholder support with preserved variable names
+- ✅ Framework agnostic usage (React, Astro, Node.js)
+- ✅ TypeScript support with strong typing
+- ✅ Server-side rendering compatibility
+- ✅ Component-level translation management
