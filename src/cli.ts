@@ -1,10 +1,7 @@
-
 import { Command } from '@commander-js/extra-typings'
-import * as fs from 'fs'
-import * as path from 'path'
+import * as fs from 'node:fs'
+import * as path from 'node:path'
 import * as yaml from 'js-yaml'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
 
 export const program = new Command()
 
@@ -131,4 +128,3 @@ export function extractTemplateStrings(content: string): string[] {
 
   return strings
 }
-

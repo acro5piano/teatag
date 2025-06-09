@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@commander-js/extra-typings':
+        specifier: ^14.0.0
+        version: 14.0.0(commander@14.0.0)
       commander:
         specifier: ^14.0.0
         version: 14.0.0
@@ -15,18 +18,12 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
     devDependencies:
-      '@commander-js/extra-typings':
-        specifier: ^14.0.0
-        version: 14.0.0(commander@14.0.0)
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
       '@types/node':
         specifier: ^22.15.29
         version: 22.15.29
-      esbuild:
-        specifier: ^0.25.5
-        version: 0.25.5
       prettier:
         specifier: ^3.5.3
         version: 3.5.3

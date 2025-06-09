@@ -10,15 +10,16 @@
   "packageManager": "pnpm@10.5.2",
   "type": "module",
   "bin": {
-    "teatag": "dist/main.js"
+    "teatag": "bin/teatag.js"
   },
   "scripts": {
-    "build": "rm -rf dist && node build.js && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "build": "rm -rf dist && tsc",
     "prepublish": "pnpm build",
     "test": "vitest",
     "test:run": "vitest run"
   },
   "files": [
+    "bin/*",
     "dist/*.js",
     "dist/*.map",
     "dist/*.ts",
@@ -26,17 +27,16 @@
     "LICENSE",
     "README.md"
   ],
-  "devDependencies": {
+  "dependencies": {
     "@commander-js/extra-typings": "^14.0.0",
+    "commander": "^14.0.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.15.29",
-    "esbuild": "^0.25.5",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "vitest": "^3.2.1"
-  },
-  "dependencies": {
-    "commander": "^14.0.0",
-    "js-yaml": "^4.1.0"
   }
 }
