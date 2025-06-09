@@ -121,7 +121,7 @@ console.log(t`Welcome to our app!`) // Output: 私たちのアプリへようこ
 - **Framework agnostic**: Works with React, Astro, Vanilla JS, and more
 - **Automatic extraction**: CLI tool finds and extracts all translatable strings
 - **Numbered placeholders**: Uses `${1}`, `${2}` format for predictable variable replacement
-- **YAML-based**: Human-readable translation files
+- **YAML-based**: Human-readable translation files (chosen over .po files for translator readability and no need for complex extract/transform/conversion between po<->json)
 - **Fallback support**: Automatically falls back to original text when translations are missing
 
 ## CLI Commands
