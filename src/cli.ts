@@ -82,9 +82,15 @@ async function extractStrings(
       yamlContent += `#: ${location}\n`
     }
     
-    // Add the translation entry
+    // Add the translation entry using proper YAML formatting
     const translation = existingTranslations[text] || ''
-    yamlContent += `'${text}': '${translation}'\n`
+    const entryData = { [text]: translation }
+    const yamlEntry = yaml.dump(entryData, {
+      flowLevel: -1,
+      quotingType: "'",
+      forceQuotes: true,
+    }).trim()
+    yamlContent += yamlEntry + '\n'
     
     // Add empty line between entries
     yamlContent += '\n'
