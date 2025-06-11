@@ -5,7 +5,7 @@
   "scripts": {
     "extract": "node ../dist/cli.js extract --lang ja --src . --out ./locales",
     "run:basic": "npx tsx src/basic-usage.ts",
-    "build": "cd .. && node ./build.js"
+    "build": "cd .. && pnpm build"
   },
   "devDependencies": {
     "@types/react": "^18.3.23",
