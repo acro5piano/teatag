@@ -1,9 +1,105 @@
-Published on ${post.date}: '${post.date}に公開'
-© ${new Date().getFullYear()} My Blog. All rights reserved.: '© ${new Date().getFullYear()} マイブログ. 無断転載を禁じます。'
-Hello, ${name}!: 'こんにちは、${name}！'
-You are ${age} years old.: 'あなたは${age}歳です。'
-${age} years old: '${age}歳'
-Welcome, ${name}! You have ${getUnreadCount()} unread messages.: 'ようこそ、${name}さん！未読メッセージが${getUnreadCount()}件あります。'
-Welcome to our store, ${userName}!: 'ようこそ、${userName}さん！'
-You have ${itemCount} items in your cart.: 'カートに${itemCount}個の商品があります。'
-${variable}: '${variable}'
+#: src/astro-page.astro:82
+'© ${new Date().getFullYear()} My Blog. All rights reserved.': '© ${new Date().getFullYear()} マイブログ. 無断転載を禁じます。'
+
+#: src/react-component.tsx:29
+'${age} years old': '${age}歳'
+
+#: src/astro-page.astro:42
+'About': 'について'
+
+#: src/react-component.tsx:29
+'Age:': '年齢：'
+
+#: src/astro-page.astro:43
+'Contact': 'お問い合わせ'
+
+#: src/react-component.tsx:35
+'Delete Account': 'アカウント削除'
+
+#: src/react-component.tsx:34
+'Edit Profile': 'プロフィール編集'
+
+#: src/react-component.tsx:26
+'Email:': 'メール：'
+
+#: src/astro-page.astro:84
+#: src/react-component.tsx:63
+'English': '英語'
+
+#: src/astro-page.astro:75
+'Enter your email': 'メールアドレスを入力'
+
+#: src/astro-page.astro:86
+#: src/react-component.tsx:65
+'French': 'フランス語'
+
+#: src/astro-page.astro:73
+'Get the latest updates delivered to your inbox.': '最新の更新情報をメールでお届けします。'
+
+#: src/basic-usage.ts:26
+#: src/basic-usage.ts:32
+#: src/basic-usage.ts:38
+'Hello, ${name}!': 'こんにちは、${name}！'
+
+#: src/astro-page.astro:51
+'Here you'll find articles about web development, technology, and more.': 'ウェブ開発、テクノロジーなどに関する記事をご紹介します。'
+
+#: src/astro-page.astro:41
+'Home': 'ホーム'
+
+#: src/astro-page.astro:85
+#: src/react-component.tsx:64
+'Japanese': '日本語'
+
+#: src/react-component.tsx:71
+'Language:': '言語：'
+
+#: src/astro-page.astro:39
+'My Awesome Blog': '私の素晴らしいブログ'
+
+#: src/astro-page.astro:34
+'My Blog': 'マイブログ'
+
+#: src/react-component.tsx:23
+'Name:': '名前：'
+
+#: src/astro-page.astro:57
+'No posts available yet.': 'まだ投稿がありません。'
+
+#: src/astro-page.astro:63
+'Published on ${post.date}': '${post.date}に公開'
+
+#: src/astro-page.astro:64
+'Read more': '続きを読む'
+
+#: src/astro-page.astro:55
+'Recent Posts': '最新の投稿'
+
+#: src/react-component.tsx:66
+'Spanish': 'スペイン語'
+
+#: src/astro-page.astro:76
+'Subscribe': '購読'
+
+#: src/astro-page.astro:72
+'Subscribe to Newsletter': 'ニュースレター購読'
+
+#: src/react-component.tsx:19
+'User Profile': 'ユーザープロフィール'
+
+#: src/astro-page.astro:50
+'Welcome to my blog!': 'ブログへようこそ！'
+
+#: src/basic-usage.ts:28
+#: src/basic-usage.ts:34
+#: src/basic-usage.ts:40
+'Welcome to teatag!': 'teatagへようこそ！'
+
+#: src/react-component.tsx:39
+'Welcome, ${name}! You have ${getUnreadCount()} unread messages.': 'ようこそ、${name}さん！未読メッセージが${getUnreadCount()}件あります。'
+
+#: src/basic-usage.ts:27
+#: src/basic-usage.ts:33
+#: src/basic-usage.ts:39
+'You are ${age} years old.': 'あなたは${age}歳です。'
+

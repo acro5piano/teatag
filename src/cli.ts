@@ -36,20 +36,26 @@ async function extractStrings(
   outDir: string,
   lang: string,
 ): Promise<void> {
-  const strings = new Set<string>()
+  const stringsWithLocations = new Map<string, string[]>()
 
   // Recursively find all TypeScript/JavaScript files
   const files = await findSourceFiles(srcDir)
 
   for (const file of files) {
     const content = fs.readFileSync(file, 'utf-8')
-    const extractedStrings = extractTemplateStrings(content)
-    extractedStrings.forEach((str) => strings.add(str))
+    const extractedData = extractTemplateStrings(content, file)
+    
+    for (const {text, locations} of extractedData) {
+      if (!stringsWithLocations.has(text)) {
+        stringsWithLocations.set(text, [])
+      }
+      stringsWithLocations.get(text)!.push(...locations)
+    }
   }
 
   // Create locale file
   const localeFile = path.join(outDir, `${lang}.yaml`)
-  const translations: Record<string, string> = {}
+  const existingTranslations: Record<string, string> = {}
 
   // If file exists, load existing translations
   if (fs.existsSync(localeFile)) {
@@ -57,28 +63,32 @@ async function extractStrings(
       const existing = yaml.load(
         fs.readFileSync(localeFile, 'utf-8'),
       ) as Record<string, string>
-      Object.assign(translations, existing)
+      Object.assign(existingTranslations, existing)
     } catch (error) {
       console.warn(`Warning: Could not parse existing ${localeFile}`)
-    }
-  }
-
-  // Add new strings with empty translations
-  for (const str of strings) {
-    if (!(str in translations)) {
-      translations[str] = ''
     }
   }
 
   // Ensure output directory exists
   fs.mkdirSync(outDir, { recursive: true })
 
-  // Write YAML file
-  const yamlContent = yaml.dump(translations, {
-    flowLevel: -1,
-    quotingType: "'",
-    forceQuotes: true,
-  })
+  // Generate YAML content with comments
+  let yamlContent = ''
+  const sortedStrings = Array.from(stringsWithLocations.entries()).sort(([a], [b]) => a.localeCompare(b))
+  
+  for (const [text, locations] of sortedStrings) {
+    // Add comment with source locations
+    for (const location of locations) {
+      yamlContent += `#: ${location}\n`
+    }
+    
+    // Add the translation entry
+    const translation = existingTranslations[text] || ''
+    yamlContent += `'${text}': '${translation}'\n`
+    
+    // Add empty line between entries
+    yamlContent += '\n'
+  }
 
   fs.writeFileSync(localeFile, yamlContent)
 }
@@ -109,22 +119,41 @@ async function findSourceFiles(dir: string): Promise<string[]> {
   return files
 }
 
-export function extractTemplateStrings(content: string): string[] {
-  const strings: string[] = []
+export function extractTemplateStrings(content: string, filePath?: string): Array<{text: string, locations: string[]}> {
+  const stringsMap = new Map<string, string[]>()
 
   // Look for template literals with 't' tag
   // Use word boundary to ensure 't' is standalone and directly followed by backtick
   const templateRegex = /\bt`([^`]+)`/g
   let match
 
+  const lines = content.split('\n')
+
   while ((match = templateRegex.exec(content)) !== null) {
     const templateContent = match[1]
+    const matchStart = match.index
+    
+    // Find line number
+    let lineNumber = 1
+    let charCount = 0
+    for (let i = 0; i < lines.length; i++) {
+      charCount += lines[i].length + 1 // +1 for newline
+      if (charCount > matchStart) {
+        lineNumber = i + 1
+        break
+      }
+    }
 
-    // Keep original variable names in placeholders
-    const normalized = templateContent
-
-    strings.push(normalized)
+    const location = filePath ? `${filePath}:${lineNumber}` : `line ${lineNumber}`
+    
+    if (!stringsMap.has(templateContent)) {
+      stringsMap.set(templateContent, [])
+    }
+    stringsMap.get(templateContent)!.push(location)
   }
 
-  return strings
+  return Array.from(stringsMap.entries()).map(([text, locations]) => ({
+    text,
+    locations
+  }))
 }

@@ -123,7 +123,7 @@ const regular = \`regular template\`
       const extracted = extractTemplateStrings(problematicCode)
       
       // Should only extract the legitimate tagged templates
-      expect(extracted).toEqual([
+      expect(extracted.map(e => e.text)).toEqual([
         'Hello world!',
         'Hello, ${name}!',
         'Actual tagged template',
@@ -132,10 +132,10 @@ const regular = \`regular template\`
       ])
       
       // Should NOT extract things that aren't valid tagged templates
-      expect(extracted).not.toContain(expect.stringContaining('this should not be extracted'))
-      expect(extracted).not.toContain(expect.stringContaining('should not match'))
-      expect(extracted).not.toContain(expect.stringContaining('regular template'))
-      expect(extracted).not.toContain(expect.stringContaining('mockdate'))
+      expect(extracted.map(e => e.text)).not.toContain(expect.stringContaining('this should not be extracted'))
+      expect(extracted.map(e => e.text)).not.toContain(expect.stringContaining('should not match'))
+      expect(extracted.map(e => e.text)).not.toContain(expect.stringContaining('regular template'))
+      expect(extracted.map(e => e.text)).not.toContain(expect.stringContaining('mockdate'))
     })
   })
 
