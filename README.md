@@ -95,12 +95,6 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.yaml'],
-  resolve: {
-    alias: {
-      'src/': `${__dirname}/src/`,
-      'locales/': `${__dirname}/locales/`,
-    },
-  },
 })
 ```
 
@@ -108,7 +102,7 @@ Then import and use translations:
 
 ```tsx
 import { addLocale, getTranslation } from 'teatag'
-import ja from 'locales/ja.yaml?raw'
+import ja from '../path/to/locales/ja.yaml?raw'
 
 // Load translations
 addLocale('ja', ja)
