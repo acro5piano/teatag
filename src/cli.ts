@@ -19,11 +19,12 @@ program
   )
   .option('--src <directory>', 'Source directory to scan', './src')
   .option('--out <directory>', 'Output directory for locale files', './locales')
+  .option('--no-comments', 'Disable source location comments in output')
   .action(async (options) => {
-    const { lang, src, out } = options
+    const { lang, src, out, comments } = options
 
     try {
-      await extractStrings(src, out, lang)
+      await extractStrings(src, out, lang, { comments })
       console.log(`Extracted strings to ${out}/${lang}.yaml`)
     } catch (error) {
       console.error('Error extracting strings:', error)
@@ -35,6 +36,7 @@ async function extractStrings(
   srcDir: string,
   outDir: string,
   lang: string,
+  options: { comments: boolean },
 ): Promise<void> {
   const stringsWithLocations = new Map<string, string[]>()
 
@@ -78,8 +80,10 @@ async function extractStrings(
   
   for (const [text, locations] of sortedStrings) {
     // Add comment with source locations
-    for (const location of locations) {
-      yamlContent += `#: ${location}\n`
+    if (options.comments) {
+      for (const location of locations) {
+        yamlContent += `#: ${location}\n`
+      }
     }
     
     // Add the translation entry using proper YAML formatting
