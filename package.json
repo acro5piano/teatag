@@ -1,12 +1,16 @@
 {
   "name": "teatag",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Dead simple i18n solution in Vanilla JS, React, TS(X), and Astro",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [],
   "author": "acro5piano <ketsume0211@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acro5piano/teatag"
+  },
   "packageManager": "pnpm@10.5.2",
   "type": "module",
   "bin": {
