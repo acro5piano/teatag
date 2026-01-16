@@ -23,33 +23,16 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '22'
+        node-version: '24'
         cache: 'pnpm'
+        registry-url: 'https://registry.npmjs.org'
 
-    - name: Install dependencies
-      run: pnpm install
-
-    - name: Verify npm version (OIDC requires 10.9.0+)
-      run: npm --version
-
-    - name: Verify tag matches package.json version
+    - name: Verify and build
       run: |
-        TAG_VERSION="${GITHUB_REF_NAME#v}"
-        PKG_VERSION=$(node -p "require('./package.json').version")
-        if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
-          echo "::error::Tag version ($TAG_VERSION) does not match package.json version ($PKG_VERSION)"
-          exit 1
-        fi
-        echo "Version verified: $TAG_VERSION"
-
-    - name: Type check
-      run: pnpm tsc --noEmit
-
-    - name: Run tests
-      run: pnpm test:run
-
-    - name: Build
-      run: pnpm build
+        pnpm install
+        pnpm tsc --noEmit
+        pnpm test:run
+        pnpm build
 
     - name: Publish to npm
-      run: npm publish --provenance --access public
+      run: npm publish
