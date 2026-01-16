@@ -84,6 +84,38 @@ describe('teatag', () => {
   })
 
   describe('CLI extraction edge cases', () => {
+    it('should respect --no-comments option', async () => {
+      const fs = await import('node:fs')
+      const path = await import('node:path')
+      const os = await import('node:os')
+      const { program } = await import('./cli')
+
+      // Create temp directories
+      const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'teatag-test-'))
+      const srcDir = path.join(tmpDir, 'src')
+      const outDir = path.join(tmpDir, 'locales')
+      fs.mkdirSync(srcDir)
+
+      // Create a source file with a t`` template
+      fs.writeFileSync(
+        path.join(srcDir, 'test.ts'),
+        `const t = getTranslation('en')\nconst msg = t\`Hello world\`\n`
+      )
+
+      // Run with comments (default)
+      await program.parseAsync(['node', 'teatag', 'extract', '--lang', 'ja', '--src', srcDir, '--out', outDir])
+      const withComments = fs.readFileSync(path.join(outDir, 'ja.yaml'), 'utf-8')
+      expect(withComments).toContain('#:')
+
+      // Run without comments
+      await program.parseAsync(['node', 'teatag', 'extract', '--lang', 'ja', '--src', srcDir, '--out', outDir, '--no-comments'])
+      const withoutComments = fs.readFileSync(path.join(outDir, 'ja.yaml'), 'utf-8')
+      expect(withoutComments).not.toContain('#:')
+
+      // Cleanup
+      fs.rmSync(tmpDir, { recursive: true })
+    })
+
     it('should not extract false positive matches', async () => {
       // Import the extraction function to test it directly
       const { extractTemplateStrings } = await import('./cli')
