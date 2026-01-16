@@ -32,6 +32,9 @@ jobs:
     - name: Install dependencies
       run: pnpm install
 
+    - name: Verify npm version (OIDC requires 10.9.0+)
+      run: npm --version
+
     - name: Type check
       run: pnpm tsc --noEmit
 
@@ -57,4 +60,4 @@ jobs:
         git push
 
     - name: Publish to npm
-      run: pnpm publish --no-git-checks --provenance
+      run: pnpm publish --no-git-checks --provenance --access public
